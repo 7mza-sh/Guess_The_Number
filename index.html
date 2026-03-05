@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ar">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Hamza Aiman">
+    <meta name="description" content="Guess_The_Number: A game where the computer guesses the number you are thinking of. Can you beat it?">
+    <meta name="keywords" content="guess the number, game, javascript, html, css, computer game">
+    <meta name="robots" content="index, follow">
+    <title>Guess The Number — Computer Guesser</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app" role="main">
+      <!-- شاشة 1: اختيار عدد الخانات -->
+      <section id="screen-start" class="screen active" aria-labelledby="start-title">
+        <div class="card">
+          <h1 id="start-title">كم عدد خانات الرقم اللي فكرت فيه؟</h1>
+        <label for="digitsInput">عدد الخانات</label>
+        <input
+          id="digitsInput"
+          name="digits"
+          type="number"
+          inputmode="numeric"
+          placeholder="مثال: 4"
+          min="1"
+          required
+          aria-required="true"
+        />
+
+        <div class="actions">
+          <button id="startBtn">ابدأ</button>
+        </div>
+
+      <p class="hint">.لا يمكن أن يكون العدد بالسالب</p>
+    </div>
+  </section>
+
+  <!-- شاشة 2: واجهة التخمين -->
+  <section id="screen-guess" class="screen" aria-labelledby="guess-title" hidden>
+    <div class="card">
+      <h2 id="guess-title">🤔 :تخميني هو<span id="computerGuess"></span> </h2>
+
+      <p id="infoRemaining"><span id="remainingGuesses">0</span> :عدد التخمينات المتبقية</p>
+
+      <div class="controls">
+        <button id="higherBtn" type="button" aria-label="الرقم أعلى">أعلى</button>
+        <button id="lowerBtn" type="button" aria-label="الرقم أقل">أقل</button>
+        <button hidden id="falseBtn" type="button" aria-label="تخمين خاطئ">تخمين خاطئ..!</button>
+        <button id="correctBtn" type="button" aria-label="تخمين صحيح">تخمين صحيح..!</button>
+      </div>
+  </section>
+
+  <!-- شاشة 3: نتيجة فشل التخمين -->
+  <section id="screen-result" class="screen" aria-labelledby="result-title" hidden>
+    <div class="card">
+      <h2 id="result-title">️العب مرة أخرى، وسأهزمك  😌☝</h2>
+      <div class="actions">
+        <button id="newGameBtn" type="button">لعبة جديدة..!</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- شاشة 4: نتيجة فوز الكمبيوتر -->
+<section id="screen-result2" class="screen" aria-labelledby="win-title" hidden>
+  <div class="card">
+    <h2 id="win-title">️حظ أوفر المرة القادمة  😌☝</h2>
+
+    <div class="actions">
+      <button id="newGameBtn2" type="button">لعبة جديدة..!</button>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
