@@ -150,13 +150,13 @@ button {
 }
 
 #falseBtn {
-    background-color: #E54646;
+  background-color: #4f46e5;
   color: #1e293b;
   flex-basis: 100%;
 }
 
 #falseBtn:hover {
-  background-color: #CA3838;
+  background-color: #4338ca;
 }
 
 #computerGuess {
