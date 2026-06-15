@@ -1,109 +1,109 @@
 // الحصول على العناصر من الصفحة الأولى
 let sec1 = document.getElementById('screen-start');
 let inp = document.getElementById('digitsInput');
-let btn = document.getElementById('startBtn');
+let inpBtn = document.getElementById('startBtn');
 
 // الحصول على العناصر من الصفحة الثانية
 let sec2 = document.getElementById('screen-guess');
-let guess = document.getElementById('computerGuess');
-let turnes = document.getElementById('remainingGuesses');
-let btn_higher = document.getElementById('higherBtn');
-let btn_lower = document.getElementById('lowerBtn');
-let btn_true = document.getElementById('correctBtn');
-let btn_false = document.getElementById('falseBtn');
+let computerGuess = document.getElementById('computerGuess');
+let computerTurnes = document.getElementById('remainingGuesses');
+let higherBtn = document.getElementById('higherBtn');
+let lowerBtn = document.getElementById('lowerBtn');
+let correctBtn = document.getElementById('correctBtn');
+let falseBtn = document.getElementById('falseBtn');
 
 // الحصول على العناصر من الصفحة الثالثة
 let sec3 = document.getElementById('screen-result');
-let btn_replay = document.getElementById('newGameBtn');
+let newGameBtn = document.getElementById('newGameBtn');
 
 // الحصول على العناصر من الصفحة الرابعة
 let sec4 = document.getElementById('screen-result2');
-let btn_replay2 = document.getElementById('newGameBtn2');
+let newGameBtn2 = document.getElementById('newGameBtn2');
+
+// جميع المتغيرات العامة بالمشروع
+let minValue = 0;
+let guess = 0.5;
+let maxValue = 1;
+let turnes = 1;
 
 // الانتقال من الصفحة الأولى للصفحة الثانية  
-btn.addEventListener('click', _ => {
+inpBtn.addEventListener('click', _ => {
   if (inp.value > 0 && inp.value == Math.floor(inp.value)) {
     sec1.hidden = true;
     sec2.hidden = false;
+    firstGuess();
   }
-  x();
 });
 
-// المتغيرات المسئولة عن التخمينات
-let min_value = 0;
-let value = 0.5;
-let max_value = 1;
-
 // تخمين البداية حسب عدد الخانات (تمت مناداة الدالة في حدث زر البداية)
-function x () {
+function firstGuess () {
   for (let i = 0; i < inp.value; i++) {
-    value *= 10;
-    max_value *= 10;
-}
-  guess.textContent = value;
+    guess *= 10;
+    maxValue *= 10;
+  }
+  computerGuess.textContent = guess;
 }
 
 // تقليل التخمين
 function low () {
-  let z = value;
+  let value = guess;
   for (let i = 0; i < 2; i++) {
-      value = Math.floor((min_value + max_value) / 2);
-      max_value = z;
-      guess.textContent = value;
+    guess = Math.floor((minValue + maxValue) / 2);
+    maxValue = value;
+    computerGuess.textContent = guess;
   }
 }
-btn_lower.addEventListener('click', low);
+lowerBtn.addEventListener('click', low);
 
 // تزويد التخمين
 function high () {
-  let z = value;
-  value = Math.floor((value + max_value) / 2);
-  min_value = z;
-  guess.textContent = value;
+  let value = guess;
+  guess = Math.floor((guess + maxValue) / 2);
+  minValue = value;
+  computerGuess.textContent = guess;
 }
-btn_higher.addEventListener('click', high);
+higherBtn.addEventListener('click', high);
 
-// إنشاء متغير عدد الاحتمالات
-let turn = 1;
-
-// إعطاء المتغير قيمة عند اختيار عدد الخانات
+// حساب عدد الخانات
 function addValue () {
-  turn = ((inp.value * 3) + Math.ceil(inp.value / 3)) - 1;
-  turnes.innerHTML = turn;
+  turnes = ((inp.value * 3) + Math.ceil(inp.value / 3)) - 1;
+  computerTurnes.textContent = turnes;
 }
-btn.addEventListener('click', addValue);
+inpBtn.addEventListener('click', addValue);
 
 // تقليل عدد الاحتمالات المتبقية بالضغط على الأزرار
-function lessValue () {
-  if (turn == 1) {
+function lessTurns () {
+  if (turnes == 1) {
   reset();
   }
-  turn--;
-  turnes.innerHTML = turn;
+  turnes--;
+  computerTurnes.textContent = turnes;
 }
-btn_lower.addEventListener('click', lessValue);
-btn_higher.addEventListener('click', lessValue);
+lowerBtn.addEventListener('click', lessTurns);
+higherBtn.addEventListener('click', lessTurns);
 
 // حذف أزرار التخمين بعد نفاذ الفرص (تمت مناداة الدالة في دالة التقليل)
 function reset () {
-  btn_lower.hidden = true;
-  btn_higher.hidden = true;
-  btn_false.hidden = false;
+  lowerBtn.hidden = true;
+  higherBtn.hidden = true;
+  falseBtn.hidden = false;
 }
 
 // إنشاء دوال عرض النتائج عند الضغط على زر النتيجة
-function win () {
-  sec2.hidden = true;
-  sec3.hidden = false;
-}
-function lose () {
-  sec2.hidden = true;
-  sec4.hidden = false;
+function result (status) {
+  if (status === 'win') {
+    sec2.hidden = true;
+    sec4.hidden = false;
+  }
+  else if (status === 'lose') {
+    sec2.hidden = true;
+    sec3.hidden = false;
+  }
 }
 
 // عرض النتائج عند الضغط على زر النتيجة
-btn_true.addEventListener('click', lose);
-btn_false.addEventListener('click', win);
+correctBtn.addEventListener('click', _ => result('win'));
+falseBtn.addEventListener('click', _ => result('lose'));
 
 // دالة إعادة تحميل الصفحة
 function replay () {
@@ -111,5 +111,5 @@ function replay () {
 }
 
 // إعادة تحميل الصفحة عنظ اللعب مرة أخرى
-btn_replay.addEventListener('click', replay);
-btn_replay2.addEventListener('click', replay);
+newGameBtn.addEventListener('click', replay);
+newGameBtn2.addEventListener('click', replay);
