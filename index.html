@@ -1,77 +1,148 @@
 <!doctype html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Hamza Aiman">
-    <meta name="description" content="Guess_The_Number: A game where the computer guesses the number you are thinking of. Can you beat it?">
-    <meta name="keywords" content="guess the number, game, javascript, html, css, computer game">
-    <meta name="robots" content="index, follow">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Hamza Aiman" />
+    <meta name="description" content="Guess_The_Number: A game where the computer guesses the number you are thinking of. Can you beat it?"/>
+    <meta name="keywords" content="guess the number, game, javascript, html, css, computer game"/>
+    <meta name="robots" content="index, follow" />
     <title>Guess The Number — Computer Guesser</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="app" role="main">
-      <!-- شاشة 1: اختيار عدد الخانات -->
-      <section id="screen-start" class="screen active" aria-labelledby="start-title">
-        <div class="card">
-          <h1 id="start-title">كم عدد خانات الرقم اللي فكرت فيه؟</h1>
-        <label for="digitsInput">عدد الخانات</label>
-        <input
-          id="digitsInput"
-          name="digits"
-          type="number"
-          inputmode="numeric"
-          placeholder="مثال: 4"
-          min="1"
-          required
-          aria-required="true"
-        />
-
-        <div class="actions">
-          <button id="startBtn">ابدأ</button>
+    <main class="game-app" role="main">
+      <section id="gameModeSelectionScreen" class="game-screen">
+        <div class="game-card">
+          <h1>مرحبًا في لعبة Guess The Number..!</h1>
+          <h2>يرجى اختيار نوع اللعبة</h2>
+          <button id="computerGuessesBtn" class="mode-choice-button">الكومبيوتر يخمن</button>
+          <button id="userGuessesBtn" class="mode-choice-button">أنت تخمن</button>
         </div>
+      </section>
 
-      <p class="hint">.لا يمكن أن يكون العدد بالسالب</p>
-    </div>
-  </section>
+      <section id="difficultySelectionScreen" class="game-screen" aria-labelledby="difficultySelectionTitle" hidden>
+        <div class="game-card">
+          <h2 id="difficultySelectionTitle">يرجى تحديد مستوى اللعبة</h2>
+          <div class="guess-control-group">
+            <button id="easyDifficultyBtn" type="button">سهل</button>
+            <button id="mediumDifficultyBtn" type="button">متوسط</button>
+            <button id="hardDifficultyBtn" type="button">صعب</button>
+          </div>
+        </div>
+      </section>
+      
+      <section id="playerGuessScreen" class="game-screen" aria-labelledby="playerGuessTitle" hidden>
+        <div class="game-card">
+          <h2 id="playerGuessTitle">يرجى تخمين رقم 🤔</h2>
+          <p id="selectedDifficultyInfo">مستوى اللعبة: <span id="selectedDifficultyValue"></span></p>
+          <p id="numberDigitsInfo">عدد خانات الرقم الذي أفكر فيه: <span id="numberDigitsValue"></span></p>
+          <p id="attemptsCountInfo">عدد التخمينات التي خمنتها حتى الآن: <span id="attemptsCountValue">0</span></p>
+          <p id="ratingInfo">تقييمك الحالي: <span id="currentRatingFilledStar">★★★</span><span id="currentRatingEmptyStar"></span></p>
+          <p id="starsLossNotice">ملاحظة: متبقي <span id="attemptsUntilStarLossValue"></span> من التخمينات لخسارة نجمة واحدة</p>
+          <p id="noGuessYetMessage">لم يتم التخمين بعد..!</p>
+          <p id="guessDirectionMessage" hidden>رقمي <span id="guessDirectionValue"></span> من <span id="lastComparedNumberValue"></span>، خمن مرة أخرى 😌</p>
+          <label for="playerGuessInput">رقم التخمين</label>
+          <input id="playerGuessInput" name="playerGuess" type="number" inputmode="numeric" placeholder="اكتب تخمينك هنا" autocomplete="off" />
+          <div class="button-group">
+            <button id="submitGuessBtn" type="button">إرسال التخمين</button>
+            <button id="giveUpBtn" type="button">استسلام</button>
+          </div>
+        </div>
+      </section>
+      
+      <section id="giveUpConfirmScreen" class="game-screen" aria-labelledby="giveUpConfirmTitle" hidden>
+        <div class="game-card">
+          <h2 id="giveUpConfirmTitle">هل أنت متأكد من أنك تريد الاستسلام 🤔؟!</h2>
+          <div class="button-group">
+            <button id="continuePlayingBtn" type="button">متابعة</button>
+            <button id="confirmGiveUpBtn" type="button">استسلام</button>
+          </div>
+        </div>
+      </section>
+      
+      <section id="winScreen" class="game-screen" aria-labelledby="winScreenTitle" hidden>
+        <div class="game-card">
+          <h2 id="winScreenTitle">رائع، لقد فعلتها..! 😍</h2>
+          <p id="winSummaryMessage">
+            رقمي كان <span id="winSecretNumberValue"></span>، واستطعت تخمينه بعد
+            <span id="winFailedAttemptsValue"></span> من المحاولات الفاشلة بتقييم
+            <span id="winRatingFilledStar"></span><span id="winRatingEmptyStar"></span>
+            (<span id="winRatingLabelValue"></span>)، أحييك على ذلك 💪🏻❤️
+          </p>
+          <p id="winPlayAgainMessage">جولة أخرى..!؟ هيا 😌☝️</p>
+          <div class="button-group">
+            <button id="playAgainFromWinBtn" type="button">العب مرة أخرى</button>
+          </div>
+        </div>
+      </section>
+      
+      <section id="loseScreen" class="game-screen" aria-labelledby="loseScreenTitle" hidden>
+        <div class="game-card">
+          <h2 id="loseScreenTitle">هاهاها، حظ أوفر المرة القادمة 😅</h2>
+          <p id="loseSummaryMessage">
+            رقمي كان <span id="loseSecretNumberValue"></span>، ولقد استسلمت بعد
+            <span id="loseAttemptsValue"></span> من المحاولات، ولكن محاولة جيدة 💪🏻❤️
+          </p>
+          <p id="losePlayAgainMessage">ألا تريد أن تعوض في جولة أخرى..!؟ هيا 😌☝️</p>
+          <div class="button-group">
+            <button id="playAgainFromLoseBtn" type="button">العب مرة أخرى</button>
+          </div>
+        </div>
+      </section>
 
-  <section id="screen-guess" class="screen" aria-labelledby="guess-title" hidden>
-    <div class="card">
-      <h2 id="guess-title">🤔 :تخميني هو<span id="computerGuess"></span> </h2>
+      <section id="digitCountScreen" class="game-screen is-active" aria-labelledby="digitCountTitle" hidden>
+        <div class="game-card">
+          <h2 id="digitCountTitle">كم عدد خانات الرقم اللي فكرت فيه؟</h2>
+          <label for="digitCountInput">عدد الخانات</label>
+          <input id="digitCountInput" name="digits" type="number" inputmode="numeric" placeholder="مثال: 4" min="1" required aria-required="true"/>
+          <div class="button-group">
+            <button id="startGameBtn" type="button">ابدأ</button>
+          </div>
+          <p class="input-hint">.لا يمكن أن يكون العدد بالسالب</p>
+        </div>
+      </section>
 
-      <p id="infoRemaining"><span id="remainingGuesses">0</span> :عدد التخمينات المتبقية</p>
-    </div>
+      <section id="guessScreen" class="game-screen" aria-labelledby="guessTitle" hidden>
+        <div class="game-card">
+          <h2 id="guessTitle">🤔 :تخميني هو<span id="currentComputerGuess"></span></h2>
+          <p id="remainingGuessInfo">
+            <span id="remainingGuessCount">0</span>
+            :عدد التخمينات المتبقية
+          </p>
+          <div class="guess-control-group">
+            <button id="higherGuessBtn" type="button" aria-label="الرقم أعلى">أعلى</button>
+            <button id="lowerGuessBtn" type="button" aria-label="الرقم أقل">أقل</button>
+            <button id="falseGuessBtn" type="button" aria-label="تخمين خاطئ" hidden>
+              تخمين خاطئ..!</button>
+            <button id="correctGuessBtn" type="button" aria-label="تخمين صحيح">
+              تخمين صحيح..!</button>
+          </div>
+        </div>
+      </section>
 
-      <div class="controls">
-        <button id="higherBtn" type="button" aria-label="الرقم أعلى">أعلى</button>
-        <button id="lowerBtn" type="button" aria-label="الرقم أقل">أقل</button>
-        <button hidden id="falseBtn" type="button" aria-label="تخمين خاطئ">تخمين خاطئ..!</button>
-        <button id="correctBtn" type="button" aria-label="تخمين صحيح">تخمين صحيح..!</button>
-      </div>
-  </section>
+      <section id="computerVictoryScreen" class="game-screen" aria-labelledby="computerVictoryTitle" hidden>
+        <div class="game-card">
+          <h2 id="userVictoryTitle">️حظ أوفر المرة القادمة 😌☝</h2>
+          <div class="button-group">
+            <button id="newComputerVictoryGameBtn" type="button">لعبة جديدة..!</button>
+          </div>
+        </div>
+      </section>
 
-  <section id="screen-result" class="screen" aria-labelledby="result-title" hidden>
-    <div class="card">
-      <h2 id="result-title">️العب مرة أخرى، وسأهزمك  😌☝</h2>
-      <div class="actions">
-        <button id="newGameBtn" type="button">لعبة جديدة..!</button>
-      </div>
-    </div>
-  </section>
-  
-<section id="screen-result2" class="screen" aria-labelledby="win-title" hidden>
-  <div class="card">
-    <h2 id="win-title">️حظ أوفر المرة القادمة  😌☝</h2>
+      <section id="userVictoryScreen" class="game-screen" aria-labelledby="userVictoryTitle" hidden>
+        <div class="game-card">
+          <h2 id="computerVictoryTitle">️العب مرة أخرى، وسأهزمك 😌☝</h2>
+          <div class="button-group">
+            <button id="newUserVictoryGameBtn" type="button">لعبة جديدة..!</button>
+          </div>
+        </div>
+      </section>
+    </main>
 
-    <div class="actions">
-      <button id="newGameBtn2" type="button">لعبة جديدة..!</button>
-    </div>
-  </div>
-</section>
-
-</main>
-<script src="script.js"></script>
-</body>
+    <script src="main.js"></script>
+    <script src="computer.js"></script>
+    <script src="events.js"></script>
+  </body>
 </html>
