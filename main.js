@@ -78,5 +78,6 @@ function gameSellect (type) {
   }
   else if (type === 'user') {
     gameTypeSec.hidden = true;
+    gameLevelSec.hidden = false;
   }
 }
