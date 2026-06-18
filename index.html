@@ -1,15 +1,73 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
   <head>
+    
+    <!-- -------------------- Browser Tags -------------------- -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Hamza Aiman" />
-    <meta name="description" content="Guess_The_Number: A game where the computer guesses the number you are thinking of. Can you beat it?"/>
-    <meta name="keywords" content="guess the number, game, javascript, html, css, computer game"/>
+    <meta property="og:locale" content="ar_EG">
+    <meta name="description" content="لعبة تفاعلية تتيح للمستخدم تجربة تخمين رقم بمستويات صعوبة مختلفة، وتقييم مستوى المستخدم بعد كل لعبة حسب عدد تخميناته، أو التفكير في رقم ويخمنه الكومبيوتر خلال عدد محدد من الفرص، هل تعتقد أن الكومبيوتر سيعرف رقمك أم لا..!؟"/>
+    <meta name="keywords" content="guess the number, number guessing game, javascript game, html, css, computer guessing game, fun game">    
     <meta name="robots" content="index, follow" />
-    <title>Guess The Number — Computer Guesser</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="canonical" href="https://7mza-sh.github.io/Guess_The_Number/">
+    <meta name="author" content="Hamza Shamma" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Guess The Number",
+      "url": "https://7mza-sh.github.io/Guess_The_Number/",
+      "author": {
+        "@type": "Person",
+        "name": "Hamza Shamma"
+      },
+      "inLanguage": "ar"
+    }
+    </script>
+    <!-- -------------------- //Browser Tags// -------------------- -->
+    
+    <!-- -------------------- Title -------------------- -->
+    <title>Guess The Number</title>
+    <!-- -------------------- //Title// -------------------- -->
+    
+    <!-- -------------------- OG Tags -------------------- -->
+    <meta property="og:title" content="Guess The Number">
+    <meta property="og:site_name" content="Guess The Number">
+    <meta property="og:description" content="🎮 لعبة Guess The Number..! 🎮 خلي الكومبيوتر يخمن الرقم اللي في بالك، أو خمن أنت الرقم اللي في باله 🌐 ياترى هل الكومبيوتر ذكي كفاية أنه يعرف رقمك خلال فرصه المحدودة..!؟ 💻 ياترى هل تعرف أنت تخمن الرقم اللي في باله 🤔 يلا، خش حاول تغلبه (لو عرفت 😌☝️) وشوف تقييمك 😍🔥">
+    <meta property="og:image" content="https://7mza-sh.github.io/Guess_The_Number/image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://7mza-sh.github.io/Guess_The_Number/">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <!-- -------------------- //OG Tags// -------------------- -->
+    
+    <!-- -------------------- Twitter -------------------- -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Guess The Number">
+    <meta name="twitter:description" content="🎮 لعبة Guess The Number..! 🎮 خلي الكومبيوتر يخمن الرقم اللي في بالك، أو خمن أنت الرقم اللي في باله 🌐 ياترى هل الكومبيوتر ذكي كفاية أنه يعرف رقمك خلال فرصه المحدودة..!؟ 💻 ياترى هل تعرف أنت تخمن الرقم اللي في باله 🤔 يلا، خش حاول تغلبه (لو عرفت 😌☝️) وشوف تقييمك 😍🔥">
+    <meta name="twitter:image" content="https://7mza-sh.github.io/Guess_The_Number/image.png">
+    <meta name="twitter:url" content="https://7mza-sh.github.io/Guess_The_Number/">
+    <!-- -------------------- //Twitter// -------------------- -->
+    
+    <!-- -------------------- icons -------------------- -->
+    <meta name="theme-color" content="#172233">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/png" href="https://7mza-sh.github.io/icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://7mza-sh.github.io/icons/favicon.svg" />
+    <link rel="shortcut icon" href="https://7mza-sh.github.io/icons/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://7mza-sh.github.io/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="7mza-sh" />
+    <link rel="manifest" href="https://7mza-sh.github.io/icons/site.webmanifest" />
+    <!-- -------------------- //icons// -------------------- -->
+    
+    <!-- -------------------- Links -------------------- -->
     <link rel="stylesheet" href="style.css" />
+    <script defer src="main.js"></script>
+    <script defer src="computer.js"></script>
+    <script defer src="user.js"></script>
+    <script defer src="events.js"></script>
+    <!-- -------------------- //Links// -------------------- -->
+    
   </head>
   <body>
     <main class="game-app" role="main">
@@ -36,14 +94,13 @@
       <section id="playerGuessScreen" class="game-screen" aria-labelledby="playerGuessTitle" hidden>
         <div class="game-card">
           <h2 id="playerGuessTitle">يرجى تخمين رقم 🤔</h2>
-          <p id="selectedDifficultyInfo">مستوى اللعبة: <span id="selectedDifficultyValue"></span></p>
-          <p id="numberDigitsInfo">عدد خانات الرقم الذي أفكر فيه: <span id="numberDigitsValue"></span></p>
+          <p id="selectedDifficultyInfo">مستوى اللعبة: <span id="selectedDifficultyValue">...</span></p>
+          <p id="numberDigitsInfo">عدد خانات الرقم الذي أفكر فيه: <span id="numberDigitsValue">0</span></p>
           <p id="attemptsCountInfo">عدد التخمينات التي خمنتها حتى الآن: <span id="attemptsCountValue">0</span></p>
           <p id="ratingInfo">تقييمك الحالي: <span id="currentRatingFilledStar">★★★</span><span id="currentRatingEmptyStar"></span></p>
           <p id="starsLossNotice">ملاحظة: متبقي <span id="attemptsUntilStarLossValue"></span> من التخمينات لخسارة نجمة واحدة</p>
           <p id="noGuessYetMessage">لم يتم التخمين بعد..!</p>
           <p id="guessDirectionMessage" hidden>رقمي <span id="guessDirectionValue"></span> من <span id="lastComparedNumberValue"></span>، خمن مرة أخرى 😌</p>
-          <label for="playerGuessInput">رقم التخمين</label>
           <input id="playerGuessInput" name="playerGuess" type="number" inputmode="numeric" placeholder="اكتب تخمينك هنا" autocomplete="off" />
           <div class="button-group">
             <button id="submitGuessBtn" type="button">إرسال التخمين</button>
@@ -69,7 +126,7 @@
             رقمي كان <span id="winSecretNumberValue"></span>، واستطعت تخمينه بعد
             <span id="winFailedAttemptsValue"></span> من المحاولات الفاشلة بتقييم
             <span id="winRatingFilledStar"></span><span id="winRatingEmptyStar"></span>
-            (<span id="winRatingLabelValue"></span>)، أحييك على ذلك 💪🏻❤️
+            (<span id="winRatingLabelValue"></span>)، <span id="but" hidden>لكن </span>أحييك على ذلك 💪🏻❤️
           </p>
           <p id="winPlayAgainMessage">جولة أخرى..!؟ هيا 😌☝️</p>
           <div class="button-group">
@@ -83,7 +140,7 @@
           <h2 id="loseScreenTitle">هاهاها، حظ أوفر المرة القادمة 😅</h2>
           <p id="loseSummaryMessage">
             رقمي كان <span id="loseSecretNumberValue"></span>، ولقد استسلمت بعد
-            <span id="loseAttemptsValue"></span> من المحاولات، ولكن محاولة جيدة 💪🏻❤️
+            <span id="loseAttemptsValue">0</span> من المحاولات، ولكن محاولة جيدة 💪🏻❤️
           </p>
           <p id="losePlayAgainMessage">ألا تريد أن تعوض في جولة أخرى..!؟ هيا 😌☝️</p>
           <div class="button-group">
@@ -105,7 +162,7 @@
       </section>
 
       <section id="guessScreen" class="game-screen" aria-labelledby="guessTitle" hidden>
-        <div class="game-card">
+        <div class="game-card" dir="ltr">
           <h2 id="guessTitle">🤔 :تخميني هو<span id="currentComputerGuess"></span></h2>
           <p id="remainingGuessInfo">
             <span id="remainingGuessCount">0</span>
@@ -140,10 +197,5 @@
         </div>
       </section>
     </main>
-
-    <script src="main.js"></script>
-    <script src="computer.js"></script>
-    <script src="user.js"></script>
-    <script src="events.js"></script>
   </body>
 </html>

@@ -210,22 +210,24 @@ button {
   color: #38bdf8;
 }
 
-#remainingGuessInfo,
 #selectedDifficultyInfo,
 #numberDigitsInfo,
 #attemptsCountInfo,
 #ratingInfo,
 #starsLossNotice,
-#noGuessYetMessage,
-#guessDirectionMessage,
 #winSummaryMessage,
-#winPlayAgainMessage,
-#loseSummaryMessage,
-#losePlayAgainMessage {
+#loseSummaryMessage {
   font-size: 14px;
   line-height: 1.5;
   opacity: 0.95;
   text-align: right;
+}
+
+
+#noGuessYetMessage,
+#guessDirectionMessage {
+  margin: 15px;
+  text-align: center;
 }
 
 #selectedDifficultyInfo,
