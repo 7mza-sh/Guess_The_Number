@@ -15,8 +15,8 @@ let gameLevel = document.getElementById('selectedDifficultyValue');
 let numLength = document.getElementById('numberDigitsValue');
 let wastedTurns = document.getElementById('attemptsCountValue');
 let filledStar = document.getElementById('currentRatingFilledStar');
-let epmtyStar = document.getElementById('currentRatingEmptyStar');
-let turnsLemet = document.getElementById('attemptsUntilStarLossValue');
+let emptyStar = document.getElementById('currentRatingEmptyStar');
+let turnsLimit = document.getElementById('attemptsUntilStarLossValue');
 let noGuessYetMessage = document.getElementById('noGuessYetMessage');
 let guessMessage = document.getElementById('guessDirectionMessage');
 let lowerOrHigher = document.getElementById('guessDirectionValue');
@@ -35,17 +35,15 @@ let userWinSec = document.getElementById('winScreen');
 let winSecretNumber = document.getElementById('winSecretNumberValue')
 let winFailedTurns = document.getElementById('winFailedAttemptsValue');
 let winFilledStar = document.getElementById('winRatingFilledStar');
-let winEpmtyStar = document.getElementById('winRatingEpmtyStar');
+let winEmptyStar = document.getElementById('winRatingEmptyStar');
 let winRatingLabelValue = document.getElementById('winRatingLabelValue');
+let but = document.getElementById('but');
 let newGameBtn = document.getElementById('playAgainFromWinBtn');
 
 // صفحة الهزيمة
 let userLoseSec = document.getElementById('loseScreen');
-let loseSecretNumber = document.getElementById('loseSecretNumberValue')
-let loseFailedTurns = document.getElementById('loseFailedAttemptsValue');
-let loseFilledStar = document.getElementById('loseRatingFilledStar');
-let loseEpmtyStar = document.getElementById('loseRatingEpmtyStar');
-let loseRating = document.getElementById('loseRatingLabelValue');
+let loseSecretNumber = document.getElementById('loseSecretNumberValue');
+let loseFailedTurns = document.getElementById('loseAttemptsValue');
 let newGameBtn2 = document.getElementById('playAgainFromLoseBtn');
 
 // الصفحة الأولى (كومبيوتر)
@@ -56,7 +54,7 @@ let computerInpBtn = document.getElementById('startGameBtn');
 // الصفحة الثانية (كومبيوتر)
 let computerSec2 = document.getElementById('guessScreen');
 let computerGuess = document.getElementById('currentComputerGuess');
-let computerTurnes = document.getElementById('remainingGuessCount');
+let computerTurns = document.getElementById('remainingGuessCount');
 let higherBtn = document.getElementById('higherGuessBtn');
 let lowerBtn = document.getElementById('lowerGuessBtn');
 let correctBtn = document.getElementById('correctGuessBtn');
@@ -71,7 +69,7 @@ let loseSec = document.getElementById('userVictoryScreen');
 let newGameBtn4 = document.getElementById('newUserVictoryGameBtn');
 
 // اختيار الصفحة بناء على اختيار المستخدم
-function gameSellect (type) {
+function gameSelect (type) {
   if (type === 'computer') {
     gameTypeSec.hidden = true;
     computerSec1.hidden = false;

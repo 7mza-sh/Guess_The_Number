@@ -5,7 +5,7 @@ let maxValue = 1;
 let turnes = 1;
 
 // الانتقال من الصفحة الأولى للصفحة الثانية  
-function telebort () {
+function teleport () {
   if (computerInp.value > 0 && computerInp.value == Math.floor(computerInp.value)) {
     computerSec1.hidden = true;
     computerSec2.hidden = false;
@@ -14,7 +14,7 @@ function telebort () {
   }
 }
 
-// تخمين البداية حسب عدد الخانات (تمت مناداة الدالة في حدث زر البداية)
+// تخمين البداية حسب عدد الخانات
 function firstGuess () {
   for (let i = 0; i < computerInp.value; i++) {
     guess *= 10;
@@ -26,14 +26,22 @@ function firstGuess () {
 // دالة حساب التخمين
 function calc (type) {
   
+  // دالة التحقق من إمكانية التخمين
+  function resetCheck () {
+    if ((guess === Math.floor((minValue + maxValue) / 2))
+    && (guess === Math.floor((guess + maxValue) / 2))) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  
   // تقليل التخمين
   function low () {
-    let value = guess;
-    for (let i = 0; i < 2; i++) {
-      guess = Math.floor((minValue + maxValue) / 2);
-      maxValue = value;
-      computerGuess.textContent = guess;
-    }
+    maxValue = guess;
+    guess = Math.floor((minValue + maxValue) / 2);
+    computerGuess.textContent = guess;
   }
   
   // تزويد التخمين
@@ -67,8 +75,7 @@ function calc (type) {
   lessTurns();
   
   // في حالة انعدام إمكانية التخمين مرة أخرى
-  if (((guess === Math.floor((minValue + maxValue) / 2))
-  && (guess === Math.floor((guess + maxValue) / 2)))) {
+  if (resetCheck ()) {
     reset();
   }
 }
@@ -76,7 +83,7 @@ function calc (type) {
 // حساب عدد الخانات
 function addValue () {
   turnes = ((computerInp.value * 3) + Math.ceil(computerInp.value / 3)) - 1;
-  computerTurnes.textContent = turnes;
+  computerTurns.textContent = turnes;
 }
 
 // تقليل عدد الاحتمالات المتبقية بالضغط على الأزرار
@@ -85,7 +92,7 @@ function lessTurns () {
   reset();
   }
   turnes--;
-  computerTurnes.textContent = turnes;
+  computerTurns.textContent = turnes;
 }
 
 // حذف أزرار التخمين بعد نفاذ الفرص (تمت مناداة الدالة في دالة التقليل)

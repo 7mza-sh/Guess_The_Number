@@ -1,9 +1,22 @@
 // تحديد الصفحة بناء على اختيار المستخدم
-computerBtn.addEventListener('click', () => gameSellect('computer'));
-userBtn.addEventListener('click', () => gameSellect('user'));
+computerBtn.addEventListener('click', () => gameSelect('computer'));
+userBtn.addEventListener('click', () => gameSelect('user'));
+
+// ما بعد تحديد مستوى اللعبة
+easyBtn.addEventListener('click', () => levelSelected ('سهل'));
+mediumBtn.addEventListener('click', () => levelSelected ('متوسط'));
+hardBtn.addEventListener('click', () => levelSelected ('صعب'));
+
+// إرسال التخمين
+userGuessInpBtn.addEventListener('click', () => guessSubmit ());
+
+// الاستسلام
+giveUpBtn.addEventListener('click', () => giveUp ('go'));
+continueBtn.addEventListener('click', () => giveUp ('no'));
+giveUpConfirmBtn.addEventListener('click', () => giveUp ('yes'));
 
 // الانتقال من الصفحة الأولى إلى الثانية (كومبيوتر)
-computerInpBtn.addEventListener('click', telebort);
+computerInpBtn.addEventListener('click', () => teleport ());
 
 // تزويد وتنقيص التخمين
 lowerBtn.addEventListener('click', () => calc('low'));
